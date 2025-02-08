@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCost, removeCost, addCount, removeCount } from '../features/cost/costSlice'
+import { addCost, removeCost, addCount, removeCount, addProduct } from '../features/cost/costSlice'
 
 function Card({ id, name, imgUrl, capacity, price }) {
     const dispatch = useDispatch();
@@ -11,8 +11,10 @@ function Card({ id, name, imgUrl, capacity, price }) {
     ) || { count: 0 }; // Ensure count is always available
 
     const handleAdd = () => {
+      const count = countValue.count + 1;
       dispatch(addCost(price));
       dispatch(addCount(id));
+      dispatch(addProduct({ id, name, count, imgUrl, capacity, price }));
     }
 
     const handleRemove = () => {

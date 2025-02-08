@@ -17,13 +17,13 @@ const Navbar = () => {
       </div>
 
       {/* Special "Show Details" Button on the Right */}
-      <div>
-        <a
-          href="/details"
-          className="bg-blue-500 text-white mr-10 px-6 py-2 rounded-full hover:bg-blue-700 transition-colors"
+      <div className="bg-blue-500 text-white mr-10 px-6 py-2 rounded-full hover:bg-blue-700 transition-colors">
+        <NavLink
+          to="/details"
+          className={({isActive}) => isActive ? "text-gray-700 font-bold" : "text-white"}
         >
           Show Details
-        </a>
+        </NavLink>
       </div>
     </nav>
   );
