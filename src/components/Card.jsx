@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCost, removeCost, addCount, removeCount, addProduct } from '../features/cost/costSlice'
+import { addCost, removeCost, addCount, removeCount, addProduct, removeProduct } from '../features/cost/costSlice'
 
 function Card({ id, name, imgUrl, capacity, price }) {
     const dispatch = useDispatch();
@@ -21,6 +21,7 @@ function Card({ id, name, imgUrl, capacity, price }) {
       if (countValue.count > 0) { // Prevent negative values
         dispatch(removeCost(price));
         dispatch(removeCount(id));
+        dispatch(removeProduct(id));
       }
     }
 

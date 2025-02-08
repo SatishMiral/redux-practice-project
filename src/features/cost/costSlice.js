@@ -48,10 +48,20 @@ const totalCostSlice = createSlice({
       } else {
         state.productArr.push({ id: action.payload.id, name: action.payload.name, count: 1, imgUrl: action.payload.imgUrl, capacity: action.payload.capacity, price: action.payload.price }); // If not found, add new item
       }
+    },
+    removeProduct: (state, action) => {
+      const item = state.productArr.find(prod => prod.id === action.payload);
+      if (item) {
+        if (item.count > 1) {
+          item.count -= 1; // Decrease count if greater than 1
+        } else {
+          state.productArr = state.productArr.filter(prod => prod.id !== action.payload); // Remove item if count is 0
+        }
+      }
     }
   }
 });
 
-export const { addCost, removeCost, addCount, removeCount, addProduct } = totalCostSlice.actions;
+export const { addCost, removeCost, addCount, removeCount, addProduct, removeProduct } = totalCostSlice.actions;
 
 export default totalCostSlice.reducer;

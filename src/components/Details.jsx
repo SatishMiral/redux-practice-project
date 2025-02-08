@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { useSelector } from 'react-redux'
+import TotalCost from './TotalCost'
 
 function Details() {
     const items = useSelector((state) => state.cost.productArr)
@@ -38,6 +39,7 @@ function Details() {
                 </div>
             )}
             </div>
+            <TotalCost/>
         </>
     )
 }
