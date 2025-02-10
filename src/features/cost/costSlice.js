@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   costs: 0,
   categoryArr: [{id:1, count:0}],
-  productArr: [{id:1, name:'', count:0, imgUrl:'', capacity:0, price:0}]
+  productArr: []
 };
 
 const totalCostSlice = createSlice({
@@ -17,7 +17,6 @@ const totalCostSlice = createSlice({
       state.costs -= action.payload;
     },
     addCount: (state, action) => {
-
       const item = state.categoryArr.find(cat => cat.id === action.payload);
       if (item) {
         item.count += 1; // If found, increment count
@@ -37,9 +36,9 @@ const totalCostSlice = createSlice({
       }
     },
     addProduct: (state, action) => {
-      console.log("action payload:,", action.payload);
+      // console.log("action payload:,", action.payload);
       const itemToFind = action.payload.id;
-      console.log("itemToFind:", itemToFind);
+      // console.log("itemToFind:", itemToFind);
       const item = state.productArr.find(prod => prod.id === itemToFind);
       // console.log("item:", item);
 
