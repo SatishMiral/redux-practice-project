@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from './Card'
 import TotalCost from './TotalCost'
+import Navbar from './Navbar'
 
 function Venue() {
   const items = [
@@ -50,6 +51,7 @@ function Venue() {
 
   return (
     <>
+      <Navbar/>
       <div className=' bg-blue-500 w-140 mt-2 p-2 rounded-lg mx-auto'>
         <h1 className='text-white text-center text-4xl font-bold'>Venue Room Selection</h1>
       </div>  

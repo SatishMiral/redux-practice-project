@@ -5,16 +5,16 @@ import { Provider } from 'react-redux'
 import './index.css'
 import App from './App.jsx'
 import Landing from './components/Landing.jsx'
-import Product from './components/Product.jsx'
 import AddOns from './components/AddOns.jsx'
 import Meals from './components/Meals.jsx'
 import Details from './components/Details.jsx'
+import Venue from './components/Venue.jsx'
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element=<App/>>
         <Route path='' element=<Landing/> />
-        <Route path='/venue' element=<Product/> />
+        <Route path='/venue' element=<Venue/> />
         <Route path='/add-ons' element=<AddOns/> />
         <Route path='/meals' element=<Meals/> />
         <Route path='/details' element=<Details/> />

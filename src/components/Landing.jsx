@@ -23,8 +23,7 @@ function Landing() {
           <p className="text-green-400 text-xl text-center">
             Plan your next major event with us
           </p>
-          <NavLink to='/venue' activeStyle={{ textColor: 'red', fontWeight: 'bold' }} 
-          >
+          <NavLink to='/venue' activeStyle={{ textColor: 'red', fontWeight: 'bold' }} >
             <button 
               className="bg-yellow-500 text-white rounded-lg cursor-pointer px-4 py-2 mx-auto block mt-4"
             >
