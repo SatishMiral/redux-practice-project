@@ -9,6 +9,7 @@ import AddOns from './components/AddOns.jsx'
 import Meals from './components/Meals.jsx'
 import Details from './components/Details.jsx'
 import Venue from './components/Venue.jsx'
+import Login from './Authentication/Login.jsx'
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -18,6 +19,7 @@ const routes = createBrowserRouter(
         <Route path='/add-ons' element=<AddOns/> />
         <Route path='/meals' element=<Meals/> />
         <Route path='/details' element=<Details/> />
+        <Route path='/login' element=<Login /> />
       </Route>
     )
 )

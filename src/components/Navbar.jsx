@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../features/User/userSlice';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -66,6 +70,22 @@ const Navbar = () => {
             Show Details
           </NavLink>
         </div>
+        {user ? <button
+          onClick={() => { dispatch(logout()); redirect("/login"); }}
+          className="bg-red-500 text-white mt-4 cursor-pointer md:mt-0 md:mr-10 px-4 md:px-6 py-2 rounded-full hover:bg-red-700 transition-colors w-full md:w-auto text-center"
+        >
+          Logout
+        </button> : 
+        <div className="bg-blue-500 text-white mt-4 md:mt-0 md:mr-10 px-4 md:px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full md:w-auto text-center">
+          <NavLink
+            to="/login"
+            className={({isActive}) => isActive ? "text-gray-700 font-bold" : "text-white"}
+          >
+          Login
+          </NavLink>
+        </div>
+
+        }
       </div>
     </nav>
   );
