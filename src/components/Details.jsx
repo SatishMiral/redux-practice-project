@@ -13,7 +13,7 @@ function Details() {
                 <h1 className='text-white text-center text-4xl font-bold'>Details</h1>
             </div>
             {items.length == 0 ? <h1 className='text-2xl font-bold underline text-center my-7'>No Items Added Yet</h1> :    
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 p-4 max-w-7xl mx-auto'>
+            <div className='grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 gap-20 p-4 max-w-7xl mx-auto'>
             {items.map(item =>
                 <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full h-[400px] transform transition duration-300 hover:scale-105">
                     <img src={item.imgUrl} alt={item.name} className="w-full h-48 object-cover" />
