@@ -2,8 +2,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCost, removeCost, addCount, removeCount, addProduct, removeProduct } from '../features/cost/costSlice'
 
-function Card({ id, name, imgUrl, capacity, price }) {
+function Card({ id, name, imgUrl, capacity, price, handleDelete }) {
     const dispatch = useDispatch();
+    const userRole = useSelector((state) => state.auth.user?.role);
+    console.log("Role of User:", userRole);
 
     // Get the count directly from Redux
     const countValue = useSelector((state) => 
@@ -49,6 +51,12 @@ function Card({ id, name, imgUrl, capacity, price }) {
             >
               +
             </button>
+            {userRole == "admin" ? <button
+              className="bg-red-700 text-white px-3 py-1 rounded-full cursor-pointer transition"
+              onClick={() => handleDelete(id)}
+            >
+              Delete
+            </button> : null} 
           </div>
         </div>
       </div>

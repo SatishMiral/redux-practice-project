@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout, addUser } from "../features/User/userSlice";
+import { login, addUser } from "../features/User/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -13,14 +14,14 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  // console.log("User:", user);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      alert("Login Successful");
       navigate("/venue");
     }
-  }, [user, navigate]);
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,16 +71,25 @@ const Login = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <label className="block text-gray-700">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="flex items-center border rounded-lg">
+                <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 focus:outline-none"
+                    required
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="px-3 py-2 text-gray-600 hover:text-gray-800 focus:outline-none"
+                >
+                    {showPassword ? "Hide" : "Show"}
+                </button>
+            </div>
           </div>
 
           <button

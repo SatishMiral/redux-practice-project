@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './Navbar'
 import Card from './Card'
 import TotalCost from './TotalCost'
 
 function Meals() {
-  const items = [
+  const [items, setItems] = useState([
     {
       id: 13,
       name: 'BreakFast', 
@@ -33,7 +33,12 @@ function Meals() {
       capacity: 10,
       price: 4500
     }
-  ]
+  ]);
+
+  const handleDelete = (id) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   return (
     <>
       <Navbar/>
@@ -43,7 +48,14 @@ function Meals() {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 max-w-7xl mx-auto'>
           {items.map(item => 
             <div className="w-full">
-              <Card id={item.id} name={item.name} imgUrl={item.imgUrl} capacity={item.capacity} price={item.price} />
+              <Card 
+                id={item.id} 
+                name={item.name} 
+                imgUrl={item.imgUrl} 
+                capacity={item.capacity} 
+                price={item.price} 
+                handleDelete={handleDelete}
+              />
             </div>
           )}
       </div>

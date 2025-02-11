@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   costs: 0,
   categoryArr: [{id:1, count:0}],
-  productArr: []
+  productArr: [],
 };
 
 const totalCostSlice = createSlice({
@@ -52,15 +52,19 @@ const totalCostSlice = createSlice({
       const item = state.productArr.find(prod => prod.id === action.payload);
       if (item) {
         if (item.count > 1) {
-          item.count -= 1; // Decrease count if greater than 1
+          item.count -= 1;
         } else {
           state.productArr = state.productArr.filter(prod => prod.id !== action.payload); // Remove item if count is 0
         }
       }
+    },
+    deleteProduct: (state, action) => {
+      const item = state.productArr.find(prod => prod.id === action.payload);
+      state.productArr = state.productArr.filter(prod => prod.id !== action.payload);
     }
   }
 });
 
-export const { addCost, removeCost, addCount, removeCount, addProduct, removeProduct } = totalCostSlice.actions;
+export const { addCost, removeCost, addCount, removeCount, addProduct, removeProduct, deleteProduct } = totalCostSlice.actions;
 
 export default totalCostSlice.reducer;

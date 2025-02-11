@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const users = JSON.parse(localStorage.getItem("users")) || [
-    { email: "satish@gmail.com", password: "satish123", role: "admin" },
-    { email: "akash@gmail.com", password: "akash123", role: "user" },
-    { email: "vaibhav@gmail.com", password: "vaibhav123", role: "user" },
-    { email: "ratnesh@gmail.com", password: "ratnesh123", role: "admin" },
-    { email: "atharva@gmail.com", password: "atharva123", role: "user" }
-];
+const users = JSON.parse(localStorage.getItem("users"));
 
 const saveUsersToLocal = (users) => {
     localStorage.setItem("users", JSON.stringify(users));
