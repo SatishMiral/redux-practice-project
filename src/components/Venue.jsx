@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Card from "./Card";
 import TotalCost from "./TotalCost";
 import Navbar from "./Navbar";
+import { useSelector } from "react-redux";
 
 function Venue() {
   const [items, setItems] = useState([
@@ -39,14 +40,6 @@ function Venue() {
     },
     {
       id: 5,
-      name: "Medium Meeting Room",
-      imgUrl:
-        "https://resource.auditoryworks.co/en-us/Solutions/MediumMeetingRoom/banner.webp",
-      capacity: 8,
-      price: 900,
-    },
-    {
-      id: 6,
       name: "Small Meeting Room",
       imgUrl:
         "https://res.cloudinary.com/myhq/image/upload/workspaces/awfis-business-mantri/meeting-room/plans/6-seater/ty5a92.jpg",
@@ -55,8 +48,14 @@ function Venue() {
     },
   ]);
 
+  const userRole = useSelector((state) => state.auth.user?.role);
+
   const handleDelete = (id) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  const handleAddItem = (item) => {
+    setItems((prevItems) => [...prevItems, { ...item, id: Date.now() }]);
   };
 
   return (
@@ -80,6 +79,13 @@ function Venue() {
             />
           </div>
         ))}
+
+        {/*showing empty card for adding items for admin*/}
+        {userRole === "admin" && (
+          <div className="w-full">
+            <Card isNew handleAddItem={handleAddItem} />
+          </div>
+        )}
       </div>
       <TotalCost />
     </>
