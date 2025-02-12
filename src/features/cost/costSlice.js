@@ -10,31 +10,36 @@ const totalCostSlice = createSlice({
   name: "cost",
   initialState,
   reducers: {
+    //for totalCost
     addCost: (state, action) => {
       state.costs += action.payload;
     },
+    //for totalCost
     removeCost: (state, action) => {
       state.costs -= action.payload;
     },
+    //for count of each unique item
     addCount: (state, action) => {
       const item = state.categoryArr.find(cat => cat.id === action.payload);
       if (item) {
-        item.count += 1; // If found, increment count
+        item.count += 1; 
       } else {
         state.categoryArr.push({ id: action.payload, count: 1 }); // If not found, add new item
       }
     },
+    //for count of each unique item
     removeCount: (state, action) => {
       // console.log("action payload:", action.payload);
       const item = state.categoryArr.find(cat => cat.id === action.payload);
       if (item) {
         if (item.count > 1) {
-          item.count -= 1; // Decrease count if greater than 1
+          item.count -= 1; 
         } else {
-          item.count = 0; // Instead of removing, set count to 0
+          item.count = 0;
         }
       }
     },
+    //to show details
     addProduct: (state, action) => {
       // console.log("action payload:,", action.payload);
       const itemToFind = action.payload.id;
@@ -43,24 +48,28 @@ const totalCostSlice = createSlice({
       // console.log("item:", item);
 
       if (item) {
-        item.count += 1; // If found, increment count
+        item.count += 1; 
       } else {
         state.productArr.push({ id: action.payload.id, name: action.payload.name, count: 1, imgUrl: action.payload.imgUrl, capacity: action.payload.capacity, price: action.payload.price }); // If not found, add new item
       }
     },
+    //to show details
     removeProduct: (state, action) => {
       const item = state.productArr.find(prod => prod.id === action.payload);
       if (item) {
         if (item.count > 1) {
           item.count -= 1;
         } else {
-          state.productArr = state.productArr.filter(prod => prod.id !== action.payload); // Remove item if count is 0
+          state.productArr = state.productArr.filter(prod => prod.id !== action.payload);
         }
       }
     },
+    //to completely delete item
     deleteProduct: (state, action) => {
-      const item = state.productArr.find(prod => prod.id === action.payload);
+      // const item = state.productArr.find(prod => prod.id === action.payload);
       state.productArr = state.productArr.filter(prod => prod.id !== action.payload);
+      state.categoryArr = state.categoryArr.filter(cat => cat.id !== action.payload);
+      state.costs = 0;
     }
   }
 });

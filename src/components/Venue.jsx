@@ -80,7 +80,7 @@ function Venue() {
           </div>
         ))}
 
-        {/*showing empty card for adding items for admin*/}
+        {/*showing empty card admin*/}
         {userRole === "admin" && (
           <div className="w-full">
             <Card isNew handleAddItem={handleAddItem} />

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Card from './Card'
 import Navbar from './Navbar'
 import TotalCost from './TotalCost'
+import { useSelector } from 'react-redux'
 
 function AddOns() {
   const [items, setItems] = useState([
@@ -40,14 +41,13 @@ function AddOns() {
       capacity: 'Any',
       price: 500
     },
-    {
-      id: 12,
-      name: 'Signage',
-      imgUrl: "https://5.imimg.com/data5/SELLER/Default/2023/3/294994406/HF/ST/YK/3365461/vertical-root-conference-room-signage.jpg",
-      capacity: 'Any',
-      price: 80
-    }
   ]);
+
+  const userRole = useSelector(state => state.auth.user?.role)
+
+  const handleAddItem = (item) => {
+    setItems((prevItems) => [...prevItems, { ...item, id: Date.now() }]);
+  };
 
   const handleDelete = (id) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -70,6 +70,13 @@ function AddOns() {
                 price={item.price} 
                 handleDelete={handleDelete} 
               />
+            </div>
+          )}
+
+          {/*empty card for admin*/}
+          {userRole === "admin" && (
+            <div className="w-full">
+              <Card isNew handleAddItem={handleAddItem} />
             </div>
           )}
       </div>

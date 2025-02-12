@@ -5,7 +5,6 @@ import { addCost, removeCost, addCount, removeCount, addProduct } from "../featu
 function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAddItem }) {
   const dispatch = useDispatch();
 
-
   const countValue = useSelector((state) => 
     state.cost.categoryArr.find(cat => cat.id === id)
   ) || { count: 0 }; 
@@ -52,13 +51,13 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
       handleAddItem(newItem);
       setNewItem({ name: "", imgUrl: "", capacity: "", price: "" });
     } else {
-      alert("Please fill all fields and upload an image.");
+      alert("Please fill all fields");
     }
   };
 
   if (isNew) {
     return (
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto p-4 transform transition duration-300 hover:scale-105 border-2 border-dashed border-gray-400">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto my-3 p-4 transform transition duration-300 hover:scale-105 border-2 border-dashed border-gray-400">
         <h2 className="text-center text-gray-500">Add New Item</h2>
         <input
           type="text"
@@ -85,7 +84,7 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
           className="w-full px-3 py-2 border rounded mt-2"
         />
 
-        <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-2" />
+        <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-3 text-blue-500 cursor-pointer" />
         {newItem.imgUrl && (
           <img src={newItem.imgUrl} alt="Preview" className="w-full h-40 object-cover mt-2 rounded" />
         )}
@@ -101,7 +100,7 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
   }
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto transform transition duration-300 hover:scale-105">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto my-3 transform transition duration-300 hover:scale-105">
       <img src={imgUrl} alt={name} className="w-full h-40 object-cover" />
       <div className="p-4 text-center">
         <h2 className="text-xl font-semibold text-gray-800">{name}</h2>

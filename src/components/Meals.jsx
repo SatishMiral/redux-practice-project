@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Navbar from './Navbar'
 import Card from './Card'
 import TotalCost from './TotalCost'
+import { useSelector } from 'react-redux'
 
 function Meals() {
   const [items, setItems] = useState([
@@ -35,6 +36,12 @@ function Meals() {
     }
   ]);
 
+  const userRole = useSelector(state => state.auth.user?.role)
+
+  const handleAddItem = (item) => {
+    setItems((prevItems) => [...prevItems, { ...item, id: Date.now() }]);
+  };
+
   const handleDelete = (id) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
@@ -56,6 +63,13 @@ function Meals() {
                 price={item.price} 
                 handleDelete={handleDelete}
               />
+            </div>
+          )}
+
+          {/*empty card for admin*/}
+          {userRole === "admin" && (
+            <div className="w-full">
+              <Card isNew handleAddItem={handleAddItem} />
             </div>
           )}
       </div>
