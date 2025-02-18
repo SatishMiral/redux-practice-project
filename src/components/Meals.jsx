@@ -36,7 +36,7 @@ function Meals() {
     }
   ]);
 
-  const userRole = useSelector(state => state.auth.user?.role)
+  const userRole = useSelector((state) => state.auth.user?.role)
 
   const handleAddItem = (item) => {
     setItems((prevItems) => [...prevItems, { ...item, id: Date.now() }]);
@@ -73,7 +73,7 @@ function Meals() {
             </div>
           )}
       </div>
-      <TotalCost/>
+      {userRole === "user" ? <TotalCost /> : null }
     </>
   )
 }

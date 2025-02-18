@@ -12,19 +12,19 @@ const totalCostSlice = createSlice({
   reducers: {
     //for totalCost
     addCost: (state, action) => {
-      state.costs += action.payload;
+      state.costs += Number(action.payload);
     },
     //for totalCost
     removeCost: (state, action) => {
-      state.costs -= action.payload;
+      state.costs -= Number(action.payload);
     },
     //for count of each unique item
     addCount: (state, action) => {
       const item = state.categoryArr.find(cat => cat.id === action.payload);
       if (item) {
-        item.count += 1; 
+        item.count += 1;
       } else {
-        state.categoryArr.push({ id: action.payload, count: 1 }); // If not found, add new item
+        state.categoryArr.push({ id: action.payload, count: 1 });
       }
     },
     //for count of each unique item

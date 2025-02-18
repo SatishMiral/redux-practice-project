@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCost, removeCost, addCount, removeCount, addProduct } from "../features/cost/costSlice";
+import { addCost, removeCost, addCount, removeCount, addProduct, removeProduct } from "../features/cost/costSlice";
 
 function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAddItem }) {
   const dispatch = useDispatch();
@@ -8,12 +8,13 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
   const countValue = useSelector((state) => 
     state.cost.categoryArr.find(cat => cat.id === id)
   ) || { count: 0 }; 
+  console.log("CountValue: ", countValue);  
 
   const handleAdd = () => {
     const count = countValue.count + 1;
-    dispatch(addCost(price));
-    dispatch(addCount(id));
-    dispatch(addProduct({ id, name, count, imgUrl, capacity, price }));
+    dispatch(addCost(price)); //for totalcost
+    dispatch(addCount(id)); //for count of each unique card 
+    dispatch(addProduct({ id, name, count, imgUrl, capacity, price })); //for show details page
   }
 
   const handleRemove = () => {
@@ -49,7 +50,7 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
   const handleSubmit = () => {
     if (newItem.name && newItem.imgUrl && newItem.capacity && newItem.price) {
       handleAddItem(newItem);
-      setNewItem({ name: "", imgUrl: "", capacity: "", price: "" });
+      setNewItem({ name: "", imgUrl: "", capacity: "", price: 0 });
     } else {
       alert("Please fill all fields");
     }
@@ -76,7 +77,7 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
           className="w-full px-3 py-2 border rounded mt-2"
         />
         <input
-          type="text"
+          type="number"
           name="price"
           placeholder="Price"
           value={newItem.price}
@@ -117,6 +118,7 @@ function Card({ id, name, imgUrl, capacity, price, handleDelete, isNew, handleAd
                 -
               </button>
               <span className="text-lg font-semibold">{countValue.count}</span>
+              {/* <span className="text-lg font-semibold">{countValue.available}</span> */}
               <button
                 className="bg-green-700 text-white px-3 py-1 rounded-full cursor-pointer transition"
                 onClick={handleAdd}

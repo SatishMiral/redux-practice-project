@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import TotalCost from "./TotalCost";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 
 function Venue() {
-  const [items, setItems] = useState([
+  const initialItems= [
     {
       id: 1,
       name: "Auditorium Hall",
@@ -46,16 +46,39 @@ function Venue() {
       capacity: 5,
       price: 800,
     },
-  ]);
+  ];
 
   const userRole = useSelector((state) => state.auth.user?.role);
+  const userId = useSelector((state) => state.auth.user?.id);
+
+  //getting stored items
+  const getStoredItems = () => {
+    const storedData = localStorage.getItem("venueData");
+    return JSON.parse(storedData)
+  };
+
+  const [items, setItems] = useState(getStoredItems());
+
+  //handling items change
+  useEffect(() => {
+    localStorage.setItem("venueData", JSON.stringify(items));
+  }, [items]);
 
   const handleDelete = (id) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    if (userRole === "admin") {
+      const updatedItems = items.filter((item) => item.id !== id);
+      setItems(updatedItems);
+      localStorage.setItem("venueData", JSON.stringify(updatedItems));
+    }
   };
 
   const handleAddItem = (item) => {
-    setItems((prevItems) => [...prevItems, { ...item, id: Date.now() }]);
+    if (userRole === "admin") {
+      const newItem = { ...item, id: Date.now() };
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
+      localStorage.setItem("venueData", JSON.stringify(updatedItems));
+    }
   };
 
   return (
@@ -87,7 +110,7 @@ function Venue() {
           </div>
         )}
       </div>
-      <TotalCost />
+      {userRole === "user" ? <TotalCost /> : null }
     </>
   );
 }
